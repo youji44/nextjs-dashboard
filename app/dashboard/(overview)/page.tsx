@@ -16,6 +16,7 @@ export default async function Page() {
     totalPaidInvoices,
     totalPendingInvoices,
   } = await fetchCardData(); // wait for fetchLatestInvoices() to finish
+  
   return (
     <main>
     <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
