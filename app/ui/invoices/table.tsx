@@ -7,9 +7,11 @@ import { fetchFilteredInvoices } from '@/app/lib/data';
 export default async function InvoicesTable({
   query,
   currentPage,
+  limit,
 }: {
   query: string;
   currentPage: number;
+  limit: number;
 }) {
   const invoices = await fetchFilteredInvoices(query, currentPage);
 
@@ -58,6 +60,9 @@ export default async function InvoicesTable({
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                  No
+                </th>
+                <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
                   Customer
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
@@ -78,11 +83,14 @@ export default async function InvoicesTable({
               </tr>
             </thead>
             <tbody className="bg-white">
-              {invoices?.map((invoice) => (
+              {invoices?.map((invoice,index) => (
                 <tr
                   key={invoice.id}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
+                    <td className="whitespace-nowrap px-3 py-3">
+                    {(currentPage - 1) * limit + index + 1}
+                  </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
                       <Image
